@@ -146,7 +146,6 @@ python ./eval/summarize_gpt_obj_halbench_review.py --cap_file {cap_file}
 
 2. Evaluate on the MMHal Bench
 
-* Please download the MMHal evaluation data [here](https://drive.google.com/file/d/1mQyAbeGgRyiVV6qjVkUI1uY_g9E-bDTH/view?usp=sharing), and save the file in `playground/data/`.
 ```py
 # eval with gpt-4
 python ./eval/eval_gpt_mmhal.py --response {response} --openai_key {api_key}
@@ -158,7 +157,7 @@ python ./eval/eval_gpt_mmhal.py --response {response} --openai_key {api_key}
 # Firstly, prepare the response format 
 python ./eval/eval_public.py # use eval_hallusionbench function
 ```
-* Secondly, refer to [HallusionBench](https://github.com/tianyi-lab/HallusionBench.git)
+
 ```py
 python HallusionBench/evaluation.py
 ```
@@ -169,7 +168,7 @@ python HallusionBench/evaluation.py
 # Firstly, prepare the response format
 python ./eval/eval_public.py # use eval_amber function
 ```
-* Secondly, refer to [AMBER](https://github.com/junyangwang0410/AMBER.git)
+
 ```py
 python AMBER/inference.py
 ```
