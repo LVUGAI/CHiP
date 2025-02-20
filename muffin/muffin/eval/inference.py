@@ -200,11 +200,9 @@ def eval_model(args):
                 temperature=0,
                 max_new_tokens=256,
                 num_beams=args.num_beams,
-                # do_sample=True,
                 output_scores=True,
                 return_dict_in_generate=True,
                 stopping_criteria=[stopping_criteria],
-                # repetition_penalty=1,
                 )
             for image, chosen, rejected, question, output_ids in zip(
                 batch['image'], batch['chosen'], batch['rejected'], batch['question'], output.sequences

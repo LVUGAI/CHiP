@@ -107,9 +107,7 @@ if __name__ == '__main__':
         )
     parser.add_argument(
         '--gpt-model', type=str, 
-        # default='gpt-4o-2024-05-13'
         default="gpt-4-1106-preview"
-        # default="gpt-4-0613"
     )
     args = parser.parse_args()
     print(args)
@@ -131,23 +129,19 @@ if __name__ == '__main__':
             records_image_response_map[item.get(
                 'image', item.get('image_id'))] = item['response'].replace(
                 "Assistant:", "").strip()
-        # records = json.load(f)
-    with open('./muffin/eval/mmhal-bench_answer_template.json', 'rb') as f:
+    with open('./eval/mmhal-bench_answer_template.json', 'rb') as f:
         records = json.load(f)#[:10]
         for item in records:
             item['model_answer'] = records_image_response_map[item['image_id']]
     
     length = len(records)
     print('records count:', length)
-    # assert len(records) == 96
 
     chat = Chat(model=args.gpt_model, timeout_sec=100, openai_apikey=args.api_key)
 
     # ask GPT-4 to evaluate
-    # responses = []
     for i, record in enumerate(records):
         if record['image_id'] in image_id_set:
-            # print('existed record: ', record['image_id'])
             continue
         image_id_set.add(record['image_id'])
         image_content = ', '.join(record['image_content'])

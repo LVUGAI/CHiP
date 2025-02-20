@@ -11,11 +11,8 @@ def eval_amber():
 
     for concat_file in file_list:
         result_list = []
-        # if os.path.exists(os.path.join(file_base, concat_file)):
-            # continue
         if '_concat' in concat_file:
             prefix = concat_file.split('_concat')[0]
-            # print('prefix: ', prefix)
             qid_set = set()
             with open(os.path.join(base_path, concat_file), 'w', encoding='utf-8') as wf:
                 for _file in os.listdir(base_path):
@@ -71,11 +68,8 @@ def eval_hallusionbench():
     ]
     for concat_file in file_list:
         result_list = []
-        # if os.path.exists(os.path.join(file_base, concat_file)):
-            # continue
         if '_concat' in concat_file:
             prefix = concat_file.split('_concat')[0]
-            # print('prefix: ', prefix)
             qid_set = set()
             with open(os.path.join(base_path, concat_file), 'w', encoding='utf-8') as wf:
                 for _file in os.listdir(base_path):
@@ -113,9 +107,6 @@ def eval_hallusionbench():
 
 if __name__ == "__main__":
     base_path='./eval_output/'
-    # amber
     eval_amber()
-    
-    # hallusionbench
     # eval_hallusionbench()
 

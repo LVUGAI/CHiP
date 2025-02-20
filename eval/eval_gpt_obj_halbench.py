@@ -27,7 +27,7 @@ else:
     ssl._create_default_https_context = _create_unverified_https_context
 
 
-# nlp = spacy.load("en_core_web_trf")
+nlp = spacy.load("en_core_web_trf")
 lemma = nltk.wordnet.WordNetLemmatizer()
 
 class Chat:
@@ -157,16 +157,13 @@ class CHAIR(object):
 
         self.coco_path = coco_path
 
-        # self.chat_model = Chat(model="gpt-3.5-turbo-0613", timeout_sec=100, openai_apikey=openai_apikey)
-        # self.chat_model = Chat(model="gpt-3.5-turbo-1106", timeout_sec=100, openai_apikey=openai_apikey)
         self.chat_model = Chat(model="gpt-4o-2024-05-13", timeout_sec=100, openai_apikey=openai_apikey)
-        # self.chat_model = Chat(model='gpt-4-1106-preview', timeout_sec=100, openai_apikey=openai_apikey)
         
         self.fail_limit=20
 
 
         #read in synonyms
-        synonyms = open('./muffin/eval/synonyms_refine.txt').readlines()
+        synonyms = open('./eval/synonyms_refine.txt').readlines()
         synonyms = [s.strip().split(', ') for s in synonyms]
         self.mscoco_objects = [] #mscoco objects and *all* synonyms
         self.inverse_synonym_dict = {}
@@ -385,8 +382,6 @@ class CHAIR(object):
                 return data_item, used_tokens, success_tokens
             except Exception as e:
                 fail_cnt += 1
-                # print(f'{data_item["index"]} Fail for other reasons')
-                # print("message:", messages)
                 print("Exception:", e, 'resp is ', resp)
 
 
@@ -469,52 +464,6 @@ class CHAIR(object):
 
         return new_caps
 
-    def get_pred_objs_match_multithread(self, caps):
-        from concurrent.futures import ThreadPoolExecutor  
-
-        def _inner(item):
-            nlp = spacy.load("en_core_web_trf")
-            caps_gpt_objs = item["extract_objs"]
-            assert caps_gpt_objs != f'-1\n<no_response>'
-            refined_objs = []
-            for text in caps_gpt_objs:
-                text = f"a {text}"
-                doc = nlp(text)
-                single_tokens = [token.lemma_ for token in doc]
-                double_words_objs = self.get_double_words_only(single_tokens)
-
-                if double_words_objs != []:
-                    refined_objs += double_words_objs
-                    continue
-
-                postagging_objs = self.postagging(doc)
-                refined_objs += postagging_objs
-
-            new_item = copy.deepcopy(item)
-
-            # only append unique word in the list
-            new_item["objs"] = []
-            for robj in refined_objs:
-                if robj not in new_item["objs"]:
-                    new_item["objs"].append(robj)
-
-            new_caps.append(new_item)
-
-        new_caps = []
-        with ThreadPoolExecutor(max_workers=30) as executor:
-            future_to_text = {executor.submit(_inner, item): item for item in caps}  
-            for future in concurrent.futures.as_completed(future_to_text):  
-                text = future_to_text[future]  
-                try:  
-                    # 实际上，process_text在这里没有返回值，但我们可以检查是否引发了异常  
-                    result = future.result()  # 如果有返回值，可以在这里接收  
-                    if len(new_caps) % 10 == 0:
-                        print(len(new_caps), time.strftime('%Y-%m-%d %H:%M:%S', time.localtime()))
-                except Exception as exc:  
-                    print(f'生成 {text} 时出错: {exc}')  
-
-        return new_caps
-
     def compute_chair(self, cap_file, sample_num, gpt_process=False, org_dir=None):
 
         '''
@@ -528,8 +477,7 @@ class CHAIR(object):
 
         if gpt_process:
             caps, all_used_tokens, all_success_tokens = self.gpt_caption_processor()
-            # caps = self.get_pred_objs_match(caps)
-            caps = self.get_pred_objs_match_multithread(caps)
+            caps = self.get_pred_objs_match(caps)
         else:
             all_used_tokens = {}
             all_success_tokens = {}
@@ -765,8 +713,6 @@ if __name__ == '__main__':
     if target_save_path_new.exists():
         print("\teval file already exists!")
         exit(0)
-    # if len(list(open(args.cap_file))) != 300:
-    #     continue
 
     print("***do process***", flush=True)
     cap_dict = evaluator.compute_chair(args.cap_file, args.sample_num, gpt_process=True, org_dir=args.q_file)

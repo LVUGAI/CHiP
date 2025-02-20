@@ -118,14 +118,7 @@ python llava_inference.py --model_name {ckpt_name} --test_datasets {test_dataset
 python muffin/muffin/eval/inference.py --model_name {ckpt_name} --test_datasets {test_datasets} --eval_output {eval_output} 
 ```
 
-
-2. Evaluate the generated responses.
-
-```py
-python ./muffin/muffin/eval/get_score.py --file {eval_output}
-```
-
-3. Evaluate Object HalBench 
+2. Evaluate Object HalBench 
 * Prepare COCO2014 annotations. 
 The evaluation of Object HalBench relies on the caption and segmentation annotations from the COCO2014 dataset. Please first download the COCO2014 dataset from the COCO dataset's official website.
 
@@ -140,36 +133,36 @@ unzip annotations_trainval2014.zip
 
 ```py
 # eval with gpt-4
-python ./muffin/muffin/eval/eval_gpt_obj_halbench.py --cap_file {cap_file} --openai_key {api_key}
+python ./eval/eval_gpt_obj_halbench.py --cap_file {cap_file} --openai_key {api_key}
 ```
 
 ```py
-python ./muffin/muffin/eval/summarize_gpt_obj_halbench_review.py --cap_file {cap_file} 
+python ./eval/summarize_gpt_obj_halbench_review.py --cap_file {cap_file} 
 ```
 
-4. Evaluate MMHal Bench
+3. Evaluate MMHal Bench
 
 * Please download the MMHal evaluation data [here](https://drive.google.com/file/d/1mQyAbeGgRyiVV6qjVkUI1uY_g9E-bDTH/view?usp=sharing), and save the file in `playground/data/`.
 ```py
 # eval with gpt-4
-python ./muffin/muffin/eval/eval_gpt_mmhal.py --response {response} --openai_key {api_key}
+python ./eval/eval_gpt_mmhal.py --response {response} --openai_key {api_key}
 ```
-5. Evaluate HallusionBench
+4. Evaluate HallusionBench
 
 ```py
 # Firstly, prepare the response format 
-python ./muffin/muffin/eval/eval_public.py # use eval_hallusionbench function
+python ./eval/eval_public.py # use eval_hallusionbench function
 ```
 * Secondly, refer to [HallusionBench](https://github.com/tianyi-lab/HallusionBench.git)
 ```py
 python HallusionBench/evaluation.py
 ```
 
-6. Evaluate AMBER
+5. Evaluate AMBER
 
 ```py
 # Firstly, prepare the response format
-python ./muffin/muffin/eval/eval_public.py # use eval_amber function
+python ./eval/eval_public.py # use eval_amber function
 ```
 * Secondly, refer to [AMBER](https://github.com/junyangwang0410/AMBER.git)
 ```py

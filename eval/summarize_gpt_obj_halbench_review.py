@@ -22,7 +22,6 @@ if __name__ == '__main__':
     obj_f1 = 2 * obj_recall * obj_correct_rate / (obj_recall + obj_correct_rate)
     res_f1 = 2 * (coco_sentence_num / 3) * correct_response / (coco_sentence_num / 3 + correct_response)
 
-    # print(f'{step:3d}\t{correct_response:.2f}\t{obj_correct_rate:.2f}\t{obj_recall:.2f}\t{obj_f1:.2f}\t{res_f1:.2f}\t{avg_length:.2f}\t{coco_sentence_num}\t{coco_word_count}\t{gt_word_count}')
     print('file: ', review_file)
     print(f'Response Hall   : {hall_response:.2f}\n'
             f'Object Hall     : {obj_hall_rate:.2f}\n'
