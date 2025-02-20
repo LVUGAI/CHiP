@@ -21,7 +21,7 @@ This repository provides the code and data for **CHiP**, a direct preference opt
 
 
 <p align="center" width="100%">
-<a target="_blank"><img src="./images/representation_analysis.png" alt="representation_analysis" style="width: 90%; min-width: 200px; display: block; margin: auto;"></a>
+<a target="_blank"><img src="./images/representation_analysis.png" alt="representation_analysis" style="width: 80%; min-width: 200px; display: block; margin: auto;"></a>
 </p>
 
 
@@ -33,7 +33,12 @@ This repository provides the code and data for **CHiP**, a direct preference opt
 
 - ** The framework of CHiP. ** CHiP comprises a hierarchical text preference optimization module that captures fine-grained preferences at the response, segment, and token levels, along with a visual preference optimization module that extracts cross-modal preferences.
 
- ![framework](./images/framework.png)
+<p align="center" width="100%">
+<a target="_blank"><img src="./images/framework.png" alt="representation_analysis" style="width: 80%; min-width: 200px; display: block; margin: auto;"></a>
+</p>
+
+
+ <!-- ![framework](./images/framework.png) -->
 
 
 For more technical details, kindly refer to the [paper](https://arxiv.org/pdf/2501.16629). 
