@@ -1,33 +1,60 @@
-<div align="center">
-
-#  CHiP
-</div>
-
-This is the Source Code of Paper: **CHiP: Cross-modal Hierarchical Direct Preference Optimization for Multimodal LLMs**
 
 
-ICLR-2025 submission.
+#  CHiP: Cross-modal Hierarchical Direct Preference Optimization for Multimodal LLMs
 
 
-## Motivation and Method
-Multimodal Large Language Models (MLLMs) still struggle with hallucinations sentation distributions reveals that multimodal DPO struggles to align image and text representations and to distinguish between hallucinated and non-hallucinated descriptions. To address these challenges, In this work, we propose a Cross-modal Hierarchical Direct Preference Optimization (CHiP) to address these limitations. We introduce a visual preference optimization module within the DPO framework, enabling MLLMs to learn from both textual and visual preferences simultaneously. Furthermore, we propose a hierarchical textual preference optimization module that allows the model to capture preferences at multiple granular levels, including response, segment, and token levels. We evaluate CHiP through both quantitative and qualitative analyses, with results across multiple benchmarks demonstrating its effectiveness in reducing hallucinations. On the Object HalBench dataset, CHiP outperforms DPO in hallucination reduction, achieving improvements of 52.7% and 55.5% relative points based on the base model Muffin and LLaVA models, respectively. 
+**ICLR 2025**
+
+**National University of Singapore**
+
+This repository provides the code and data for **CHiP**, a direct preference optimization algorithm aimed at mitigating hallucinations in multimodal large language models (MLLMs) and enhancing cross-modal semantic alignment. 
+
+
+## Brief Introduction 
+
+
+
+
+
+
+- **The capabilities of ideally well-aligned MLLMs.** Ideally, for well-aligned MLLMs, the representations of an image and its ground-truth description should be as close as possible, while the representations of ground-truth and hallucinated descriptions should be more distant.
+
+
+<p align="center" width="100%">
+<a target="_blank"><img src="./images/representation_analysis.png" alt="representation_analysis" style="width: 90%; min-width: 200px; display: block; margin: auto;"></a>
+</p>
+
+
+ <!-- ![representation_analysis](./images/representation_analysis.png) -->
+
+
+- **The gap between existing MLLMs, MLLMs with DPO, and the ideal state.** (1) LLaVA and LLaVA+DPO struggles to align image and description representations and to effectively distinguish between hallucinated and non-hallucinated descriptions. (2) The proposed CHiP method, which incorporates both image and fine-grained text preferences, achieves better alignment between images and ground-truth descrip- tions while increasing the distance between ground-truth and hallucinated descriptions.
+
+
+- ** The framework of CHiP. ** CHiP comprises a hierarchical text preference optimization module that captures fine-grained preferences at the response, segment, and token levels, along with a visual preference optimization module that extracts cross-modal preferences.
 
  ![framework](./images/framework.png)
 
+
+For more technical details, kindly refer to the [paper](https://arxiv.org/pdf/2501.16629). 
+
+
 ## Contents
-- [Data](#data)
-- [Install](#install)
-- [Training](#training)
-- [Evaluation](#evaluation)
+- [1. Preparing Dataset](#data)
+- [2. Environment Preparation](#install)
+- [3. Training](#training)
+- [4. Evaluation](#evaluation)
 
 
-## Data
+## 1. Preparing Dataset 
 
-### Training data
-* There are several publicly available training datasets that include preference pairs for multimodal hallucinations. Here, we choose to use the RLHF-V-Dataset (Yu et al., 2024a;b) with 5k training samples as our training dataset.
-### Evaluation data
+### 1.1 Training Dataset
+* There are several publicly available training datasets that include preference pairs for multimodal hallucinations. Here, we choose to use the [RLHF-V Dataset](https://github.com/RLHF-V/RLHF-V) with 5k training samples as our training dataset.
 
-The evaluation data can be downloaded from [here](https://drive.google.com/drive/folders/1gAauyipB4Zcc2hfJWH9G3DkwF-2Kx6MX) and placed in the playground/data directory
+
+### 1.2 Evaluation Dataset
+
+The evaluation data can be downloaded from [here](https://drive.google.com/drive/folders/1gAauyipB4Zcc2hfJWH9G3DkwF-2Kx6MX) and placed in the playground/data directory.
 
 The evaluation dataset utilized in our work are listed below: 
 * Object HalBench (ObjHal)
@@ -37,7 +64,7 @@ The evaluation dataset utilized in our work are listed below:
 
 
 
-## Install
+## 2. Environment Preparation
 
 1. Clone this repository and navigate to source folder
 ```bash
@@ -59,8 +86,7 @@ pip install -e .
 ```
 
 
-### Training
-Firstly, configure the training dataset name data_path and the checkpoint name output_dir.
+## 3. Training
 
 * #### LLaVA CHiP/DPO Training
 ```Shell
@@ -78,7 +104,7 @@ bash muffin/script/train/dpo.sh
 ```
 
 
-## Evaluation
+## 4. Evaluation
 
 1. Run inference to generate responses
 
@@ -145,7 +171,25 @@ python ./muffin/muffin/eval/eval_public.py # use eval_amber function
 python AMBER/inference.py
 ```
 
+## Citation
+
+If you find CHiP useful in your research or applications, please kindly cite:
+
+```
+@inproceedings{fu2025chip,
+  title={CHiP: Cross-modal Hierarchical Direct Preference Optimization for Multimodal LLMs},
+  author={Fu, Jinlan and Huangfu, Shenzhen and Fei, Hao and Shen, Xiaoyu and Hooi, Bryan and Qiu, Xipeng and Ng, See-Kiong},
+  journal={Proceedings of the International Conference on Learning Representations},
+  year={2025}
+}
+
+```
+
+
 
 ## Acknowledgement
 
 Our CHiP is developed based on the codebases of [LLaVA](https://github.com/haotian-liu/LLaVA) and [Muffin](https://github.com/thunlp/muffin), and we would like to thank the developers of both.
+
+
+
