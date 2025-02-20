@@ -3,9 +3,9 @@
 #  CHiP: Cross-modal Hierarchical Direct Preference Optimization for Multimodal LLMs
 
 
-**ICLR 2025**
+<span style="color:blue;">**ICLR 2025**</span>
 
-**National University of Singapore**
+<span style="color:blue;">**National University of Singapore**</span>
 
 This repository provides the code and data for **CHiP**, a direct preference optimization algorithm aimed at mitigating hallucinations in multimodal large language models (MLLMs) and enhancing cross-modal semantic alignment. 
 
