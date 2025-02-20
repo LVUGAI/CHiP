@@ -54,18 +54,18 @@ For more technical details, kindly refer to the [paper](https://arxiv.org/pdf/25
 ## 1. Preparing Dataset 
 
 ### 1.1 Training Dataset
-* There are several publicly available training datasets that include preference pairs for multimodal hallucinations. Here, we choose to use the [RLHF-V Dataset](https://github.com/RLHF-V/RLHF-V) with 5k training samples as our training dataset.
+There are several publicly available training datasets that include preference pairs for multimodal hallucinations. Here, we choose to use the [RLHF-V Dataset](https://github.com/RLHF-V/RLHF-V). You can download from [HuggingFace](https://huggingface.co/datasets/openbmb/RLHF-V-Dataset).
 
 
 ### 1.2 Evaluation Dataset
 
-The evaluation data can be downloaded from [here](https://drive.google.com/drive/folders/1gAauyipB4Zcc2hfJWH9G3DkwF-2Kx6MX) and placed in the playground/data directory.
+The evaluation datasets are publicly available and widely used. They can be downloaded from their official websites and placed in the `playground/data` directory.
 
-The evaluation dataset utilized in our work are listed below: 
-* Object HalBench (ObjHal)
-* MMHal-Bench (MMHal)
-* HallusionBench
-* AMBER
+The evaluation datasets used in this study and their download links are listed below:
+* Object HalBench (ObjHal) (Download from [here](https://github.com/RLHF-V/RLHF-V/blob/main/eval/data/obj_halbench_mhumaneval_data_with_image.jsonl)!)
+* MMHal-Bench (MMHal) (Download from [here](https://huggingface.co/datasets/Shengcao1006/MMHal-Bench)!)
+* HallusionBench (Download from [here](https://github.com/tianyi-lab/HallusionBench)!)
+* AMBER (Download from [here](https://github.com/junyangwang0410/AMBER)!)
 
 
 
